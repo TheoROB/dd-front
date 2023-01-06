@@ -17,7 +17,7 @@ import PrivateRoute from "./utils/PrivateRoute";
 function App() {
   return (
     <Router>
-      <div cc className="flex flex-column">
+      <divclassName="flex flex-column">
         <AuthProvider>
           <Switch>
             <PrivateRoute component={NewStudent} path="/students/new" />
