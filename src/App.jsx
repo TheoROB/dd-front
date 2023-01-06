@@ -1,5 +1,5 @@
 import React from "react";
-import "./index.css";
+import "./App.css";
 import { AuthProvider } from "./context/AuthContext";
 import { BrowserRouter as Router, Switch, Route } from "react-router-dom";
 import NewStudent from "./components/views/NewStudent";
@@ -17,7 +17,7 @@ import PrivateRoute from "./utils/PrivateRoute";
 function App() {
   return (
     <Router>
-      <div className="flex flex-col min-h-screen overflow-hidden">
+      <div cc className="flex flex-column">
         <AuthProvider>
           <Switch>
             <PrivateRoute component={NewStudent} path="/students/new" />
