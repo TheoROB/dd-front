@@ -1,0 +1,18 @@
+body{
+    background-color: #252525;
+}
+
+.menu {
+    display:flex;
+    justify-content: space-around;
+    align-items: center;
+    color: white;
+}
+
+.orderStudents {
+    border: 1px solid white;
+    width: 200px;
+    display: flex;
+    justify-content: space-around;
+    
+}
