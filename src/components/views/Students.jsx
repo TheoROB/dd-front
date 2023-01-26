@@ -1,5 +1,7 @@
 import React from "react";
 import '../../style/students.css';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
+import { solid, regular, brands, icon } from '@fortawesome/fontawesome-svg'
 
 function Students() {
   return (
@@ -12,6 +14,7 @@ function Students() {
           <p>A-Z</p>
         </div>
         <div>
+          <FontAwesomeIcon icon={solid('plus')} />
           <img src="" alt="croix ajout etudiant" />
           <img src="" alt="revenir en arriere" />
         </div>
