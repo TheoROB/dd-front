@@ -50,3 +50,7 @@ body{
     flex-direction: column;
     align-items: center;
 }
+
+.PlayerNameText{
+    color: white;
+}

@@ -1,22 +1,20 @@
 import React, { useState } from "react";
 import '../../style/students.css';
-import { faHome } from "@fortawesome/free-solid-svg-icons";
 import { useEffect } from "react";
 import Modal from "../modal/Modal";
 
 function Students() {
+  const [students, setStudents] = useState([]);
 
-  const [posts, setPosts] = useState([]);
+
+async function getUserr (){
+  const result = await fetch("http://localhost:8000/api/players")
+       const res = await result.json()
+       setStudents(res)
+}
+
   useEffect(() => {
-     fetch('https://jsonplaceholder.typicode.com/posts?_limit=10')
-        .then((response) => response.json())
-        .then((data) => {
-           console.log(data);
-           setPosts(data);
-        })
-        .catch((err) => {
-           console.log(err.message);
-        });
+    getUserr()
   }, []);
   
     
@@ -32,21 +30,23 @@ function Students() {
           </div>
           <div>
             {/* <FontAwesomeIcon icon={faHome} /> */}
-            {/* <Modal /> */}
+            <Modal />
             <img src="" alt="revenir en arriere" />
           </div>
       </div>
       <div className="studentsList">
-              {posts.map((post) => {
+              {students.map((student) => {
               return (
+                <>
+
                 <div className="cardStudentsList">
                   <div className="cardStudentsImage">
-                    <img src="" alt="" />
                   </div>
                   <div className="cardStudentsdescription">
-                    <p key={post.id}>{post.title}</p>
+                    <p className="PlayerNameText" key={student.id}>{student.pseudo}</p>
                   </div>
                 </div>
+                </>
               );
             })}      
           </div>

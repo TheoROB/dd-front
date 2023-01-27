@@ -1,69 +1,91 @@
-import React, { useState } from "react";
+import React, { useState } from 'react';
 
+const ModalForm = () => {
+  const [isShowing, setIsShowing] = useState(false);
+  const [formData, setFormData] = useState({});
 
-const Modal = async (pseudo, attack, shield) => {
-    
-    const [isOpen, setIsOpen] = useState(false);
+  const openModalHandler = () => {
+    setIsShowing(true);
+  };
 
-    const showModal = () => {
-    setIsOpen(true);
-    };
+  const closeModalHandler = () => {
+    setIsShowing(false);
+  };
 
-    const hideModal = () => {
-    setIsOpen(false);
-    };
-
-    const [title, setTitle] = useState('');
-    const [body, setBody] = useState('');
-    const [posts, setPosts] = useState([]);
-
-    //Faire en sorte d'importer setPosts
-
-    await fetch('https://jsonplaceholder.typicode.com/posts', {
-    method: 'POST',
-    body: JSON.stringify({
-        pseudo: pseudo,
-        attack: attack,
-        shield: shield,
-    }),
-    headers: {
-       'Content-type': 'application/json; charset=UTF-8',
-    },
-    })
-    .then((response) => response.json())
-    .then((data) => {
-       setPosts((posts) => [data, ...posts]);
-       setTitle('');
-       setBody('');
-    })
-    .catch((err) => {
-       console.log(err.message);
+  const handleFormChange = (e) => {
+    setFormData({
+      ...formData,
+      [e.target.name]: e.target.value
     });
+  };
 
-    const handleSubmit = (e) => {
+  const handleFormSubmit = async (e) => {
     e.preventDefault();
-    Modal(title, body);
-};    
-    
+    const response = await fetch('http://127.0.0.1:8000/api/player/new', {
+      method: 'POST',
+      body: formData,
+      headers: {
+        'Content-Type': 'application/json'
+      }
+    });
+    console.log(formData);
+    const data = await response.json();
+    console.log(data);
+  };
 
   return (
     <div>
-      <button onClick={showModal}>add student</button>
-      {isOpen && (
+      {isShowing ? (
         <div className="modal">
-          <div className="modal-content">
-            <form onSubmit={handleSubmit}>
-                <input type="text" className="form-control" value={title} onChange={(e) => setTitle(e.target.value)}/>
-                <textarea name="" className="form-control" id="" cols="10" rows="8" value={body} onChange={(e) => setBody(e.target.value)}></textarea>
-                <button type="submit">Add Post</button>
-            </form>
-            <button onClick={hideModal}>Close Modal</button>
-          </div>
+          <form onSubmit={handleFormSubmit}>
+            <input
+              type="text"
+              name="pseudo"
+              placeholder="Name"
+              value={formData.pseudo || ''}
+              onChange={handleFormChange}
+            />
+            <input
+              type="text"
+              name="image"
+              placeholder="imageUrl"
+              value={formData.image || ''}
+              onChange={handleFormChange}
+            />
+            <input
+              type="text"
+              name="elo"
+              placeholder="elo"
+              value={formData.elo || ''}
+              onChange={handleFormChange}
+            />
+            <input
+              type="text"
+              name="attack"
+              placeholder="attack"
+              value={formData.attack || ''}
+              onChange={handleFormChange}
+            />
+            <input
+              type="text"
+              name="creator_id"
+              placeholder="creator_id"
+              value={formData.creator_id || ''}
+              onChange={handleFormChange}
+            />
+            <input type="submit" value="Submit" />
+          </form>
+          <button className="close-modal-btn" onClick={closeModalHandler}>
+            close
+          </button>
         </div>
+      ) : (
+        <button className="open-modal-btn" onClick={openModalHandler}>
+          add a player
+        </button>
       )}
     </div>
   );
 };
 
-
-export default Modal;
+export default ModalForm;
