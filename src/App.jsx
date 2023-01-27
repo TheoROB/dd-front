@@ -17,10 +17,10 @@ import PrivateRoute from "./utils/PrivateRoute";
 function App() {
   return (
     <Router>
-      <div className="flex flex-column">
+      <div className="flex flex-col min-h-screen overflow-hidden">
         <AuthProvider>
           <Switch>
-            <PrivateRoute component={NewStudent} path="/students/new" />
+          <PrivateRoute component={NewStudent} path="/students/new" />
             <Route component={StudentsDetails} path="/students/:id" />
             <Route component={Students} path="/students" />
             <Route component={Fight} path="/fight" />
@@ -35,5 +35,4 @@ function App() {
     </Router>
   );
 }
-
 export default App;
